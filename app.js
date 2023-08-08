@@ -1,15 +1,15 @@
 // Define the URL to fetch the data
-const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
+let url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
 
 // Function to update charts when dropdown selection is made
 function selectionMade(selectedSample) {
   // Fetch the JSON data
   d3.json(url).then((data) => {
     // Data collection and organization
-    const sampleData = data.samples.find(sampleObj => sampleObj.id == selectedSample);
+    let sampleData = data.samples.find(sampleObj => sampleObj.id == selectedSample);
 
     // Bar chart data
-    const selectedBar = [{
+    let selectedBar = [{
       x: sampleData.sample_values.slice(0, 10).reverse(),
       y: sampleData.otu_ids.slice(0, 10).reverse().map(labelFormat),
       orientation: "h",
@@ -18,7 +18,7 @@ function selectionMade(selectedSample) {
     }];
 
     // Bar chart layout
-    const selectedBarLayout = {
+    let selectedBarLayout = {
       title: "Top 10 OTUs",
       showlegend: false,
       xaxis: { title: "Sample Values" },
@@ -29,7 +29,7 @@ function selectionMade(selectedSample) {
     Plotly.newPlot("bar", selectedBar, selectedBarLayout);
 
     // Bubble chart data
-    const selectedBubble = [{
+    let selectedBubble = [{
       x: sampleData.otu_ids,
       y: sampleData.sample_values,
       mode: 'markers',
@@ -41,7 +41,7 @@ function selectionMade(selectedSample) {
     }];
 
     // Bubble chart layout
-    const selectedBubbleLayout = {
+    let selectedBubbleLayout = {
       title: "Individual Samples",
       showlegend: false,
       xaxis: { title: "OTU ID" },
@@ -52,8 +52,8 @@ function selectionMade(selectedSample) {
     Plotly.newPlot("bubble", selectedBubble, selectedBubbleLayout);
 
     // Demographic info table
-    const metadata = data.metadata.find(sampleObj => sampleObj.id == selectedSample);
-    const demographicInfo = d3.select('#sample-metadata').selectAll("li").data(Object.entries(metadata));
+    let metadata = data.metadata.find(sampleObj => sampleObj.id == selectedSample);
+    let demographicInfo = d3.select('#sample-metadata').selectAll("li").data(Object.entries(metadata));
 
     // Update the demographic info
     demographicInfo.enter()
@@ -90,8 +90,8 @@ function binarySearch(list, val) {
 // Function to populate the dropdown menu
 function populateDropdownMenu() {
   d3.json(url).then((data) => {
-    const dropdown = d3.select("#selDataset");
-    const names = data.names;
+    let dropdown = d3.select("#selDataset");
+    let names = data.names;
 
     dropdown.selectAll("option")
       .data(names)
@@ -112,12 +112,17 @@ populateDropdownMenu();
 
 // Initialize the charts with the first sample data
 d3.json(url).then((data) => {
-  const initialSample = data.names[0];
+  let initialSample = data.names[0];
   selectionMade(initialSample);
 });
 
 // Event listener for dropdown menu change
 d3.select("#selDataset").on("change", function () {
-  const selectedSample = d3.event.target.value;
+  let selectedSample = d3.event.target.value;
   selectionMade(selectedSample);
 });
+
+// Define the optionChanged function to handle dropdown changes
+function optionChanged(selectedSample) {
+  selectionMade(selectedSample);
+}
