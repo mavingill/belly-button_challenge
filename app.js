@@ -117,12 +117,12 @@ d3.json(url).then((data) => {
 });
 
 // Event listener for dropdown menu change
-d3.select("#selDataset").on("change", function () {
-  let selectedSample = d3.event.target.value;
-  selectionMade(selectedSample);
-});
+//d3.select("#selDataset").on("change", function () {
+  //let selectedSample = d3.event.target.value;
+  //selectionMade(selectedSample);
+//});
 
 // Define the optionChanged function to handle dropdown changes
-function optionChanged(selectedSample) {
-  selectionMade(selectedSample);
-}
+//function optionChanged(selectedSample) {
+  //selectionMade(selectedSample);
+//}
