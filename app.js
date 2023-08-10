@@ -66,25 +66,14 @@ function selectionMade(selectedSample) {
   });
 }
 
-// Binary search to get the data based on selection made in the dropdown menu
-function binarySearch(list, val) {
-  let left = 0;
-  let right = list.length - 1;
-  let mid;
-
-  while (left <= right) {
-    mid = Math.floor((left + right) / 2);
-
-    if (list[mid] === val) {
-      return mid;
-    } else if (list[mid] < val) {
-      left = mid + 1;
-    } else {
-      right = mid - 1;
+// Linear search to get the index of the value in the list
+function linearSearch(list, val) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i] === val) {
+      return i;
     }
   }
-
-  return -1;
+  return -1; // Value not found
 }
 
 // Function to populate the dropdown menu
